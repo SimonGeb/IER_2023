@@ -10,6 +10,7 @@ import enum
 import glob
 import os
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
@@ -36,9 +37,10 @@ from scipy.stats import kstest
 from scipy.stats import kruskal
 from scipy.stats import wilcoxon
 
-#import the raw data as a pandas dataframe 
-data_path = "C:/Users/Gebra/OneDrive - Delft University of Technology/Master/IER/EyeTracking-data"
-
+#set some general variables 
+absolute_path = os.path.dirname(__file__)
+data_path = os.path.join(absolute_path, '..', 'data' )
+results_path = os.path.join(absolute_path, '..', 'results' )
 participants = 24
 conditions = ["Control","Noise","NPC","Second_Task","4_Combined"]
 
@@ -118,7 +120,7 @@ def test_classifier(X, y, clf, N):
      print(avg_auc)
      print(avg_accuracy)
      return avg_auc, avg_accuracy
-#%%
+#%% Analyse blinking
 
 #define empty dictonaries to store the data for plotting
 blink_rate = {}
@@ -197,7 +199,8 @@ for p in range(1,(participants+1)):
         classifier_var.append(norm_variab)
         classifier_class.append(i)
 
-#%%
+#%% Saving data
+
 #save normalized and unnormalized data for later use
 classifier_data = pd.DataFrame({'Blink_rate':classifier_br, 'Variability':classifier_var, 'Class':classifier_class})
 classifier_data.to_csv(data_path + '/classes.csv')
@@ -211,7 +214,8 @@ df.columns = ['Index','Blink_rate','Variability','Class']
 df = df.drop(df[(df.Class == 1) | (df.Class == 2) | (df.Class == 3)].index)
 df.to_csv(data_path + '/binary.csv',index=False)
 
-#%%
+#%% Classifying data
+
 #read saved data
 classifier_data = pd.read_csv(data_path + '/classes.csv')
 classifier_data.columns = ['Index','Blink_rate','Variability','Class']
@@ -256,7 +260,8 @@ for name, feature in features.items():
     aucs[name].append(mean)
 
 print(aucs)
-#%%
+#%% Plot classifiers
+
 #plot the auc scores of the different classifiers
 
 
@@ -264,27 +269,29 @@ classifiers['Mean'] = None
 x = np.arange(9)  # the label locations
 width = 0.25  # the width of the bars
 multiplier = 0
-
-fig, ax = plt.subplots()
+hatches = ['--', '+', 'x']
+fig, ax = plt.subplots(figsize =(6, 4))
 
 for attribute, measurement in aucs.items():
     offset = width * multiplier
-    rects = ax.bar(x + offset, [round(elem, 2) for elem in measurement], width, label=attribute)
+    rects = ax.bar(x + offset, [round(elem, 2) for elem in measurement], width, label=attribute, hatch = hatches[multiplier] )
     ax.bar_label(rects, padding=5, rotation = 90)
     multiplier += 1
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax.set_ylabel('AUC')
-ax.set_title('AUC per classifier (binary)')
+ax.set_title('AUC per classifier')
 ax.set_xticks(x + width)
 ax.set_xticklabels(classifiers.keys())
 ax.legend()
 ax.set_ylim(0, 1)
 
 plt.show()
+fig.savefig(results_path+'/classifiers_auc.eps', format='eps')
+#%% Plot blinkrate
 
-#%%
 #create a boxplot of the blinkrate and perform statistical tests
+
 
 boxplot_data = []
 
@@ -300,21 +307,23 @@ for condition in conditions:
     #print results
     print(condition,'mean: ', avg,' std: ', std,' p of normal: ', p)
 
-fig = plt.figure(figsize =(5, 3))
+fig, ax = plt.subplots(figsize =(5, 3))
 # Creating axes instance
 ax = fig.add_axes([0, 0, 1, 1])
 ax.set_ylabel('Normalized blink rate')
 ax.set_title('Boxplot of blink rate')
 ax.set_xticklabels(conditions)
 # Creating plot
-bp = ax.boxplot(boxplot_data)
+ax.boxplot(boxplot_data)
  
 # show plot
 plt.show()
+fig.savefig(results_path+'/blink_rates.eps', format='eps')
 
 #print result of kruskal wallis test
 print(kruskal(boxplot_data[0],boxplot_data[1],boxplot_data[2],boxplot_data[3],boxplot_data[4]))
-#%%
+#%% Compare blinkrate
+
 #create a table where we compare each condition of blink rate through a wilcoxon signed rank test
 
 table = []
@@ -344,7 +353,8 @@ fig.tight_layout()
 plt.show()
 
 print(wilcoxon(boxplot_data[0],boxplot_data[4]))
-#%%
+#%% Plot blinkrate variability
+
 #create a boxplot of the blinkrate variability and perform statistical tests
 
 boxplot_data = []
@@ -360,7 +370,7 @@ for condition in conditions:
     
     #print results
     print(condition,'mean: ', avg,' std: ', std,' p of normal: ', p)
-fig = plt.figure(figsize =(5, 3))
+fig, ax = plt.subplots(figsize =(5, 3))
  
 # Creating axes instance
 ax = fig.add_axes([0, 0, 1, 1])
@@ -369,16 +379,18 @@ ax.set_title('Boxplot of blink rate variability')
 ax.set_xticklabels(conditions)
  
 # Creating plot
-bp = ax.boxplot(boxplot_data)
+ax.boxplot(boxplot_data)
  
 # show plot
 
 plt.show()
+fig.savefig(results_path+'/blink_rates_vars.eps', format='eps')
 
 #print result of kruskal wallis test
 print(kruskal(boxplot_data[0],boxplot_data[1],boxplot_data[2],boxplot_data[3],boxplot_data[4]))
 
-#%%
+#%% Compare blinkrate variability
+
 #create a table where we compare each condition of blink rate variability through a wilcoxon signed rank test
 
 table = []

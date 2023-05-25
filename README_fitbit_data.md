@@ -37,7 +37,7 @@ These instructions will help you to get the code running.
 
 ### Prerequisites
 - Installation of Python with matplotlib, numpy, seaborn, pandas, sklearn and scipy
-- A package manager like Anaconda can be helpful for this
+- A package manager like Anaconda can be helpful for this (Anaconda is freely available)
 
 ### Installing
 - With the prerequisites, nothing needs to be installed. You can just open analyse_blinking.py
@@ -61,7 +61,10 @@ This section assumes you have met the prerequisites and have analyse_blinking.py
 
 
 ## 3. License information
-This project is licensed under the CC0 1.0 Universal Creative Commons License.
+This project is licensed under the [MIT](LICENSE.md) License.
 
-## 4. Contributing information
+## 4. Citation information
+To cite this work, refer to the [citation](CITATION.cff) or click 'Cite this repository' in the 'About' section of this repository.
+
+## 5. Contributing information
 If you want to contribute to this project, send a push request with your contribution.

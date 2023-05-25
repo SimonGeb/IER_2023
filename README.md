@@ -1,7 +1,16 @@
+# General README
+This is the GitHub repository for the ME41125 Introduction to Engineering Research course for 2023. It contains the data and code for the "Real-time cognitive load prediction using eye-tracking data" paper.
+The structure is as follows:
+- data: contains all data used in this project
+- src: contains the code used for analysis in this project
+- results: contains the generated plots
+
+Please refer below for detailed information on the dataset and code.
+
 # Dataset README
 ## 1. Introductory information
 Eyetracking dataset: EyeTracking-data
-The folder is organized with subfolders for each participant, which contains the raw eyetracking data for each condition (explained in the next section) in csv format. Additionaly, for each condition there is data ending with _blinks. These contain the raw eyetracking data, as well as annotations at blink events.
+The data folder is organized with subfolders for each participant, which contains the raw eyetracking data for each condition (explained in the next section) in csv format. Additionaly, for each condition there is data ending with _blinks. These contain the raw eyetracking data, as well as annotations at blink events.
 For questions about the dataset, contact Simon Gebraad at j.s.gebraad@student.tudelft.nl.
 
 ## 2. Methodological information

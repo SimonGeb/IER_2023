@@ -1,10 +1,19 @@
+*Dataset information
 #### 1. Introductory information
-Fitbit dataset: Data_IER
+Eyetracking dataset: EyeTracking-data
 
-For questions about the dataset, contact Lisa Hoogendam during the ME41125 course question hours on Thursdays. 
+For questions about the dataset, contact Simon Gebraad at j.s.gebraad@student.tudelft.nl.
 
 #### 2. Methodological information
-This dataset is coming from a study with previous students. The students were asked to track the number of steps taken each day, during one week. 
+The raw data comes from a BEP project. During the study, the participants were placed in a VR environment and asked to locate and gather 10 products from shelves in a specified order and place them in a cart. These products were shown on a shopping list. This experiment was done in 5 conditions:
+
+- 0: Control condition: no external influence
+- 1: Non-playable characters (NPCs): multiple NPCs were walking through the aisles, creating visual distractions.
+- 2: Background noise: audio fragments of a busy supermarket were played, creating auditory distractions.
+- 3: Arithmetic task: the participants had to perform an arithmetic task simultaneously with the primary task. 
+- 4: Combined conditions: all previous conditions were combined.
+
+Additionaly, there
 
 #### 3. Data specific information
 The dataset includes:

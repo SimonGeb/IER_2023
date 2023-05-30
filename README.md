@@ -45,11 +45,14 @@ The goal of this project was to extract blink rate and blink rate variability fr
 These instructions will help you to get the code running.
 
 ### Prerequisites
+- A GUI manager, like Github Desktop or Git Bash
 - Installation of Python with matplotlib, numpy, seaborn, pandas, sklearn and scipy
 - A package manager like Anaconda can be helpful for this (Anaconda is freely available)
 
 ### Installing
-- With the prerequisites, nothing needs to be installed. You can just open analyse_blinking.py
+- Clone this repository using your GUI manager of choice
+- With the prerequisites, nothing needs to be installed. You can just open and run analyse_blinking.py
+- It is prefered to use a graphical python client like Spyder so you can see the output instantly
 
 ### Running
 This section assumes you have met the prerequisites and have analyse_blinking.py open.
